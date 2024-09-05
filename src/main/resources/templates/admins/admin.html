@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin page</title>
+</head>
+<body>
+<h2>Список зарегестрированных пользователей</h2>
+
+
+<div th:each="user : ${users}">
+    <a th:href="@{admin/user(id=${user.getId()})}"
+       th:text="${user.getName() + ' ' + user.getSurname() + ', ' + user.getAge() }">user</a> <br>
+    <br>
+    <a style="color: darkgreen">Роли:</a> <br>
+    <div th:each="role : ${user.getRoleList()}">
+        <a th:text="${role.getRole()}">role</a>
+    </div>
+    <hr/>
+</div>
+
+
+
+<form method="GET" action="/admin/new">
+    <input type="submit" value="Create new user"/>
+</form>
+<hr/>
+<form method="GET" action="/logout">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>

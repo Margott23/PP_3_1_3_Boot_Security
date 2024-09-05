@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>User page</title>
+</head>
+<body>
+<!--<h3>User, welcome spring boot security page!</h3>-->
+
+<a th:text="${user.getLogin()}">text</a> <a>, добро пожаловать на свою страницу!</a> <br>
+<br>
+Name: <a th:text="${user.getName()}">value</a>  <br>
+Surname: <a th:text="${user.getSurname()}">value</a> <br>
+Age: <a th:text="${user.getAge()}">value</a> <br>
+<hr/>
+<form method="GET" action="/logout">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>

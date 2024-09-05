@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>User page</title>
+</head>
+<style>
+    .btn {
+        display: inline-block;
+        padding: 1px 6px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #000;
+        background-color: #f0f0f0;
+        border: 1px solid #7e7e7e;
+        border-radius: 3px;
+        box-shadow: none;
+        font-family: Calibri, sans-serif;
+    }
+
+    .btn:hover {
+        background-color: #d8d8d8;
+    }
+
+    .delete-btn {
+        display: inline-block;
+        padding: 1px 6px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #000;
+        background-color: #f0f0f0;
+        border: 1px solid #7e7e7e;
+        border-radius: 3px;
+        box-shadow: none;
+        font-family: Calibri, sans-serif;
+    }
+
+    .delete-btn:hover {
+        background-color: #d8d8d8;
+    }
+</style>
+<body>
+<!--<h3>User, welcome spring boot security page!</h3>-->
+
+<a>Страница пользователя: </a><a th:text="${user.getLogin()}">text</a> <br>
+<br>
+Name: <a th:text="${user.getName()}">value</a>  <br>
+Surname: <a th:text="${user.getSurname()}">value</a> <br>
+Age: <a th:text="${user.getAge()}">value</a> <br>
+Login: <a th:text="${user.getLogin()}">value</a> <br>
+Role: <a th:text="${user.getRoles()}">value</a> <br>
+<a th:if="${user.getLogin()=='admin'}" style="color:red">Изменение этого пользователя невозможно!</a>
+
+<a th:if="${user.getLogin()!='admin'}" th:href="@{/admin/edit(id=${user.getId()})}" class="btn"> Edit </a>
+
+<form th:if="${user.getLogin()!='admin'}" action="/admin/delete" method="post" style="display:inline;">
+    <input type="hidden" name="id" th:value="${user.getId()}">
+    <button type="submit" class="btn delete-btn">Delete</button>
+</form>
+<hr/>
+<form method="GET" action="/logout">
+    <input type="submit" value="Logout"/>
+</form>
+<form method="GET" action="/admin">
+    <input type="submit" value="Back"/>
+</form>
+</body>
+</html>
