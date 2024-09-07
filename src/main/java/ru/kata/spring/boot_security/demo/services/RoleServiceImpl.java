@@ -23,7 +23,12 @@ public class RoleServiceImpl implements RoleService {
     public void updateRoleForUser(User user) {
         List<Role> roles = new ArrayList<>();
         for (Role role : user.getRoleList()) {
-            Role rRole = roleRepository.findByRole(role.getRole());
+            Role rRole;
+            if (role.getRole().isEmpty()) {
+                rRole = roleRepository.findByRole("ROLE_USER");
+            } else {
+                rRole = roleRepository.findByRole(role.getRole());
+            }
             roles.add(rRole);
         }
         user.setRoleList(roles);

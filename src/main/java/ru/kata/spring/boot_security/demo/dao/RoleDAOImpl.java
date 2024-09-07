@@ -15,9 +15,6 @@ public class RoleDAOImpl implements RoleDAO {
 
     @Override
     public Role findByRole(String roleName) {
-        if (roleName.isEmpty()) {
-            roleName = "ROLE_USER";
-        }
         Query query = entityManager.createQuery("SELECT r FROM Role r WHERE r.role = :roleName");
         query.setParameter("roleName", roleName);
         return (Role) query.getSingleResult();
