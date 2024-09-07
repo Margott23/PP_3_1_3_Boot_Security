@@ -37,9 +37,9 @@ public class DataLoader implements CommandLineRunner {
                     "admin",
                     passwordEncoder.encode("admin"),
                     List.of(adminRole));
-            userRepository.save(user);
             roleRepository.save(adminRole);
             roleRepository.save(userRole);
+            userRepository.save(user);
         }
     }
 }
