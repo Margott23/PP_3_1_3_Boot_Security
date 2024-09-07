@@ -18,17 +18,17 @@ public class RoleServiceImpl implements RoleService {
         this.roleRepository = roleRepository;
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void updateRoleForUser(User user) {
         List<Role> roles = new ArrayList<>();
-        for (Role role : user.getRoleList()) {
-            Role rRole;
-            if (role.getRole().isEmpty()) {
-                rRole = roleRepository.findByRole("ROLE_USER");
-            } else {
-                rRole = roleRepository.findByRole(role.getRole());
+        if (!user.getRoles().isEmpty()) {
+            for (Role role : user.getRoleList()) {
+                Role rRole = roleRepository.findByRole(role.getRole());
+                roles.add(rRole);
             }
+        } else {
+            Role rRole = roleRepository.findByRole("ROLE_USER");
             roles.add(rRole);
         }
         user.setRoleList(roles);
