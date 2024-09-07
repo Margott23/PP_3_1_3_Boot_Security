@@ -24,9 +24,4 @@ public class RoleDAOImpl implements RoleDAO {
     public void save(Role role) {
         entityManager.persist(role);
     }
-
-    @Override
-    public Role findById(int id) {
-        return entityManager.find(Role.class, id);
-    }
 }

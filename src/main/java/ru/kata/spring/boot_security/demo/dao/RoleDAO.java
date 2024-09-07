@@ -6,6 +6,4 @@ public interface RoleDAO {
     Role findByRole(String roleName);
 
     void save(Role role);
-
-    Role findById(int id);
 }
