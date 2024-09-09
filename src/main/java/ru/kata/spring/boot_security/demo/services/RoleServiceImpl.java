@@ -2,7 +2,7 @@ package ru.kata.spring.boot_security.demo.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.dao.RoleDAOImpl;
+import ru.kata.spring.boot_security.demo.dao.RoleDaoImpl;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
@@ -12,9 +12,9 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    private final RoleDAOImpl roleRepository;
+    private final RoleDaoImpl roleRepository;
 
-    public RoleServiceImpl(RoleDAOImpl roleRepository) {
+    public RoleServiceImpl(RoleDaoImpl roleRepository) {
         this.roleRepository = roleRepository;
     }
 
@@ -32,5 +32,28 @@ public class RoleServiceImpl implements RoleService {
             roles.add(rRole);
         }
         user.setRoleList(roles);
+    }
+
+    @Override
+    @Transactional
+    public void addDefaultRoles() {
+        if (roleRepository.findAll().isEmpty()) {
+            Role userRole = new Role("ROLE_USER");
+            Role adminRole = new Role("ROLE_ADMIN");
+            roleRepository.save(userRole);
+            roleRepository.save(adminRole);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateDefaultRolesToDefaultUser(User admin) {
+        List<Role> roles = new ArrayList<>();
+        if (admin.getRoleList().stream().anyMatch(rRole -> rRole.getRole().equals("ROLE_ADMIN"))) {
+            admin.setRoleList(roles);
+        } else {
+            roles.add(roleRepository.findByRole("ROLE_ADMIN"));
+            admin.setRoleList(roles);
+        }
     }
 }

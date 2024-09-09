@@ -5,4 +5,8 @@ import ru.kata.spring.boot_security.demo.models.User;
 public interface RoleService {
 
     void updateRoleForUser(User user);
+
+    void addDefaultRoles();
+
+    void updateDefaultRolesToDefaultUser(User admin);
 }
